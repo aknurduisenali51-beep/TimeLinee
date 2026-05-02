@@ -198,6 +198,10 @@ def admin_delete_product(product_id):
     return redirect(url_for('admin_dashboard'))
 
 # ---------- Run ----------
+@app.route('/health')
+def health():
+    return 'OK', 200
+    
 if __name__ == '__main__':
     init_db()
     port = int(os.environ.get('PORT', 5000))
