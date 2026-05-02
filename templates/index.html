@@ -19,8 +19,11 @@
                     <button type="submit" class="btn primary">В корзину</button>
                 </form>
                 {% if product.kaspi_link %}
-                    <a href="{{ product.kaspi_link }}" target="_blank" class="btn outline">Купить в Kaspi</a>
-                {% endif %}
+    <a href="{{ product.kaspi_link }}" target="_blank" class="btn outline"
+       onclick="window.open(this.href,'_blank','noopener,noreferrer'); return false;">
+       Купить в Kaspi
+    </a>
+{% endif %}
             </div>
         </div>
     </div>
