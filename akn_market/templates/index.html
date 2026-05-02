@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Новые поступления</h2>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        {% if product.image %}
+            <img src="{{ url_for('static', filename='uploads/' + product.image) }}" alt="{{ product.name }}">
+        {% else %}
+            <img src="https://via.placeholder.com/400x300/1a1a1a/ffffff?text=No+image" alt="Нет фото">
+        {% endif %}
+        <div class="product-card-body">
+            <h3>{{ product.name }}</h3>
+            <p class="desc">{{ product.description }}</p>
+            <div class="price">{{ "%.0f"|format(product.price) }} ₸</div>
+            <div class="actions">
+                <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST" style="flex:1;">
+                    <button type="submit" class="btn primary">В корзину</button>
+                </form>
+                {% if product.kaspi_link %}
+                    <a href="{{ product.kaspi_link }}" target="_blank" class="btn outline">Купить в Kaspi</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p style="grid-column: 1/-1; text-align:center; color:#888;">Товары скоро появятся. Следите за обновлениями!</p>
+    {% endfor %}
+</div>
+{% endblock %}

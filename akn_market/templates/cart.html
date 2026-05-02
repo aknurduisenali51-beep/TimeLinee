@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>🛒 Корзина</h2>
+
+{% if cart_items %}
+<table class="cart-table">
+    <thead>
+        <tr>
+            <th>Товар</th>
+            <th>Цена</th>
+            <th>Кол-во</th>
+            <th>Сумма</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+        <tr>
+            <td>
+                <div style="display:flex; align-items:center; gap:1rem;">
+                    {% if item.image %}
+                        <img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.name }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/60" alt="Нет фото">
+                    {% endif %}
+                    <span>{{ item.name }}</span>
+                </div>
+            </td>
+            <td>{{ "%.0f"|format(item.price) }} ₸</td>
+            <td>{{ item.quantity }}</td>
+            <td><strong>{{ "%.0f"|format(item.subtotal) }} ₸</strong></td>
+            <td>
+                <form action="{{ url_for('remove_from_cart', product_id=item.id) }}" method="POST">
+                    <button type="submit" class="btn danger" style="padding:0.3rem 0.8rem;">🗑</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="total-box">
+    Итого: <span style="font-size:2rem;">{{ "%.0f"|format(total) }} ₸</span>
+</div>
+
+<div style="display:flex; gap:1rem; justify-content:flex-end;">
+    <a href="{{ url_for('index') }}" class="btn outline">Продолжить покупки</a>
+    <a href="{{ url_for('checkout') }}" class="btn primary">Оформить заказ</a>
+</div>
+
+{% else %}
+<p style="text-align:center; color:#888; margin:3rem 0;">Ваша корзина пуста.</p>
+<div style="text-align:center;">
+    <a href="{{ url_for('index') }}" class="btn outline">Перейти в каталог</a>
+</div>
+{% endif %}
+{% endblock %}

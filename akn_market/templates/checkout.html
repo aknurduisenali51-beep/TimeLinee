@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Оформление заказа</h2>
+
+<div style="max-width:600px; margin:0 auto;">
+    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:2rem;">
+        {% for item in items %}
+        <div style="display:flex; justify-content: space-between; margin-bottom:0.8rem;">
+            <span>{{ item.name }} x{{ item.quantity }}</span>
+            <span>{{ "%.0f"|format(item.subtotal) }} ₸</span>
+        </div>
+        {% endfor %}
+        <hr style="border-color:rgba(255,255,255,0.1); margin:1rem 0;">
+        <div style="font-size:1.4rem; font-weight:700; display:flex; justify-content: space-between;">
+            <span>Итого к оплате:</span>
+            <span>{{ "%.0f"|format(total) }} ₸</span>
+        </div>
+    </div>
+
+    <p style="margin:2rem 0 1rem; text-align:center; color:#b0b0b0;">Для завершения заказа свяжитесь с менеджером в WhatsApp.</p>
+    <a href="{{ whatsapp_url }}" target="_blank" class="btn primary" style="width:100%; font-size:1.1rem; padding:1rem;">💬 Связаться в WhatsApp</a>
+    <div style="text-align:center; margin-top:1rem;">
+        <a href="{{ url_for('cart') }}" class="btn outline">← Назад в корзину</a>
+    </div>
+</div>
+{% endblock %}

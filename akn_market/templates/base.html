@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKN MARKET - гаджеты с доставкой</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="top-bar">
+        <a href="{{ url_for('index') }}" class="brand"> TIME LINE </a>
+        <div class="contacts">
+            <a href="tel:+77775705911">+7 777 570 59 11</a>
+            <a href="https://www.instagram.com/timeline.kzh?igsh=MW5hbzFrbDRja2V4" target="_blank">Instagram</a>
+            <a href="https://wa.me/77775705911" target="_blank">WhatsApp</a>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Кнопка WhatsApp (плавающая) -->
+    <a href="https://wa.me/77001234567?text=Здравствуйте!+Интересует+товар+из+AKN+MARKET" class="whatsapp-float" target="_blank">
+        💬
+    </a>
+</body>
+</html>

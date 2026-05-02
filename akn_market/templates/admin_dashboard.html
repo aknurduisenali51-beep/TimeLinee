@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>🛠 Админ-панель</h2>
+
+<div style="display:flex; gap:2rem; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+    <a href="{{ url_for('admin_logout') }}" class="btn outline">Выйти</a>
+</div>
+
+<h3>Добавить товар</h3>
+<form action="{{ url_for('admin_add_product') }}" method="POST" enctype="multipart/form-data" class="admin-form">
+    <label>Название</label>
+    <input type="text" name="name" required>
+    <label>Описание</label>
+    <textarea name="description" rows="3"></textarea>
+    <label>Цена (₸)</label>
+    <input type="number" step="0.01" name="price" required>
+    <label>Ссылка на Kaspi</label>
+    <input type="url" name="kaspi_link" placeholder="https://kaspi.kz/...">
+    <label>Фото товара</label>
+    <input type="file" name="image" accept="image/*">
+    <button type="submit" class="btn primary">Добавить товар</button>
+</form>
+
+<h3 style="margin-top:3rem;">Список товаров</h3>
+<table class="cart-table" style="margin-top:1rem;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Фото</th>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Действие</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>
+                {% if product.image %}
+                    <img src="{{ url_for('static', filename='uploads/' + product.image) }}" width="50" style="border-radius:8px;">
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ "%.0f"|format(product.price) }} ₸</td>
+            <td>
+                <form action="{{ url_for('admin_delete_product', product_id=product.id) }}" method="POST" onsubmit="return confirm('Удалить товар?');">
+                    <button type="submit" class="btn danger">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

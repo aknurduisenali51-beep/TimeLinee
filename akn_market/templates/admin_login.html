@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:400px; margin:5rem auto; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:2rem;">
+    <h2 style="text-align:center;">Вход в админ-панель</h2>
+    {% if error %}
+        <p style="color:#ff453a; text-align:center;">{{ error }}</p>
+    {% endif %}
+    <form method="POST" class="admin-form">
+        <label>Логин</label>
+        <input type="text" name="username" required>
+        <label>Пароль</label>
+        <input type="password" name="password" required>
+        <button type="submit" class="btn primary" style="width:100%;">Войти</button>
+    </form>
+</div>
+{% endblock %}
